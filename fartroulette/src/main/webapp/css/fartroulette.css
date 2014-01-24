@@ -1,0 +1,45 @@
+
+
+.character {
+    width: 30%;
+    /*background-color: #0ee;*/
+    margin-left: -8%;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.character img{
+    max-width: 100%;
+
+}
+
+.not-in-game {
+    display: block;
+    background-color: #ee0;
+    cursor: pointer;
+}
+
+.elevator {
+    border: red thick solid;
+    padding-left: 12%;
+    margin: 0 10%;
+}
+
+.door {
+    background-color: greenyellow;
+    z-index: 100;
+    width: 50%;
+    height: 100%;
+    display: inline-block;
+}
+
+.stage {
+    border: blue thin solid;
+    display: block;
+}
+
+
+
+/*.elevator div {*/
+    /*display: inline;*/
+/*}*/

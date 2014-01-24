@@ -1,9 +1,104 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html ng-app="app">
 <head>
     <title>Fart Roulette</title>
+    <script src="http://code.createjs.com/easeljs-0.7.0.min.js"></script>
+    <script src="http://code.createjs.com/tweenjs-0.5.0.min.js"></script>
+    <script src="http://code.createjs.com/movieclip-0.7.0.min.js"></script>
+    <script type="application/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script>
+    <script type="application/javascript" src="js/fartroulette.js"></script>
+    <script type="application/javascript" src="js/test2009.js"></script>
+    <!--<script type="application/javascript" src="js/fatguy1.js"></script>-->
+    <!--<script type="application/javascript" src="js/fatguy2.js"></script>-->
+    <!--<script type="application/javascript" src="js/oldguy1.js"></script>-->
+    <!--<script type="application/javascript" src="js/oldguy2.js"></script>-->
+    <link rel="stylesheet" href="css/fartroulette.css">
 </head>
 <body>
-   Hello Farters
+    <div class="main" ng-controller="MainCtrl">
+        <div class="not-in-game" ng-show="!loggedIn">
+            <div ng-click="login()">log in to join {{loggedIn}}</div>
+        </div>
+
+
+        <div class="in-game" ng-show="loggedIn">
+            <div class="stage" ng-show="state.stage == 'before'">
+                {{stage}}
+            </div>
+
+            <div class="stage" ng-show="showElevatorDiv()">
+                <div class="elevator">
+                    <div class="character" ng-click="vote(1)"><img src="assets/Char_01.png"></div>
+                    <div class="character" ng-click="vote(2)"><img src="assets/Char_02.png"></div>
+                    <div class="character" ng-click="vote(3)"><img src="assets/Char_03.png"></div>
+                    <div class="character" ng-click="vote(4)"><img src="assets/Char_04.png"></div>
+                </div>
+                <div class="doors">
+                    <div class="door left">aa</div>
+                    <div class="door right">aa</div>
+                </div>
+                <div class="user-list">
+                    user user user
+                </div>
+            </div>
+
+
+            <div class="stage" ng-show="state.stage == 'after'">
+                {{stage}}
+            </div>
+
+        </div>
+
+
+
+    </div>
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function() {
+            FB.init({
+                appId      : '247588218754850',
+                status     : true,
+                xfbml      : true
+            });
+        };
+
+        (function(d, s, id){
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement(s); js.id = id;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
 </body>
 </html>
+
+
+   <!--Hello Farters-->
+   <!--<br/>-->
+   <!--<input type="range" ng-model="x" name="x"-->
+          <!--min="0" max="200" integer />-->
+   <!--<p>{{x}}</p>-->
+
+   <!--&lt;!&ndash;<div>&ndash;&gt;-->
+       <!--&lt;!&ndash;<label>Name:</label>&ndash;&gt;-->
+       <!--&lt;!&ndash;<input type="text" ng-model="yourName" placeholder="Enter a name here">&ndash;&gt;-->
+       <!--&lt;!&ndash;<hr>&ndash;&gt;-->
+       <!--&lt;!&ndash;<h1>Hello {{yourName}}!</h1>&ndash;&gt;-->
+   <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+   <!--<svg version="1.1"-->
+        <!--baseProfile="full"-->
+        <!--xmlns="http://www.w3.org/2000/svg"-->
+        <!--height="100%" width="100%">-->
+       <!--<linearGradient id="backGrad" x1="0%" y1="0%" x2="0%" y2="100%">-->
+           <!--<stop offset="10%" style="stop-color:#990000; stop-opacity:1" />-->
+           <!--<stop offset="90%" style="stop-color:#cccc00; stop-opacity:1" />-->
+       <!--</linearGradient>-->
+
+
+       <!--<rect width="90%" height="90%" ng-attr-x="{{x}}" y="5%" fill="url(#backGrad)" />-->
+
+   <!--</svg>-->
+

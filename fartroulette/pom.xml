@@ -81,9 +81,15 @@
 					<scanIntervalSeconds>5</scanIntervalSeconds>
 					<!--<scanTargets>${basedir}/src/test/webapp/</scanTargets> -->
 
-					<stopKey>stop</stopKey>
-					<stopPort>3333</stopPort>
-				</configuration>
+                    <stopKey>stop</stopKey>
+                    <stopPort>3333</stopPort>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>jetty.host</name>
+                            <value>0.0.0.0</value>
+                        </systemProperty>
+                    </systemProperties>
+                </configuration>
 
 			</plugin>
 

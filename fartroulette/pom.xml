@@ -57,6 +57,12 @@
 
                     <stopKey>stop</stopKey>
                     <stopPort>3333</stopPort>
+                    <systemProperties>
+                        <systemProperty>
+                            <name>jetty.host</name>
+                            <value>0.0.0.0</value>
+                        </systemProperty>
+                    </systemProperties>
                 </configuration>
 
             </plugin>

@@ -317,7 +317,9 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
         }
 
         // Convert to absolute path.
-        return System.getProperty("user.dir") + File.separator + uri;
+        ///Users/tal/git/fartroulette/fartroulette/src/main/webapp
+        //TODO:FIX THIS
+        return System.getProperty("user.dir") + "/src/main/webapp" + File.separator + uri;
     }
 
     private static final Pattern ALLOWED_FILE_NAME = Pattern.compile("[A-Za-z0-9][-_A-Za-z0-9\\.]*");

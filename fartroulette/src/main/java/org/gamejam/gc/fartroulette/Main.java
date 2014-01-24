@@ -1,6 +1,6 @@
 package org.gamejam.gc.fartroulette;
 
-
+//test with http://localhost:8080/test/websocket.html
 public class Main 
 {
     public static void main( String[] args ) throws Exception

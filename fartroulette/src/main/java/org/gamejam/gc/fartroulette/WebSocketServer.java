@@ -18,6 +18,7 @@ package org.gamejam.gc.fartroulette;
 
 import org.gamejam.gc.fartroulette.model.ModelClasses;
 import org.gamejam.gc.fartroulette.model.ModelClasses.ElevatorData;
+import org.gamejam.gc.fartroulette.model.ModelClasses.GameState;
 import org.gamejam.gc.fartroulette.model.ModelClasses.UserData;
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -132,6 +133,7 @@ public class WebSocketServer {
 		userData1.bets.put("char2", 1);
 		s_elevatorData.activeUsers.put(1, userData1);
 		s_elevatorData.activeUsers.put(2, userData2);
+		s_elevatorData.gameState = GameState.OPEN_FOR_BETS;
 	}
 
 

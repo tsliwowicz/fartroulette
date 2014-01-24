@@ -3,8 +3,14 @@ package org.gamejam.gc.fartroulette;
 
 public class Main 
 {
-    public static void main( String[] args )
+    public static void main( String[] args ) throws Exception
     {
-        System.out.println( "Hello World!" );
+    	 int port;
+         if (args.length > 0) {
+             port = Integer.parseInt(args[0]);
+         } else {
+             port = 8080;
+         }
+         new WebSocketServer(port).run();
     }
 }

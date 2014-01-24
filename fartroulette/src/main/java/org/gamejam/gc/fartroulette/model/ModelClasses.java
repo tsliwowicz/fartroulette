@@ -17,12 +17,18 @@ public class ModelClasses {
 		public List<UserData> nonBetting = new ArrayList<UserData>();
 		public Map<String, CharacterData> charactersData = new HashMap<String, ModelClasses.CharacterData>();
 		public ConcurrentMap<Integer, UserData> activeUsers;
+		public GameState gameState;
+		
 		
 		@Override
 		public String toString() {
-			return "ClientModel [nonBetting=" + nonBetting
-					+ ", charactersData=" + charactersData + "]";
+			return "ClientModel [timeLeftForState=" + timeLeftForState
+					+ ", nonBetting=" + nonBetting + ", charactersData="
+					+ charactersData + ", activeUsers=" + activeUsers
+					+ ", gameState=" + gameState + "]";
 		}
+		
+		
 		
 		
 		
@@ -116,6 +122,7 @@ public class ModelClasses {
 			ClientModel model = new ClientModel();
 			model.activeUsers = activeUsers;
 			model.timeLeftForState = timeLeftForState;
+			model.gameState = gameState;
 			
 			for (Entry<Integer, UserData> u: activeUsers.entrySet()) {
 				UserData user = u.getValue();

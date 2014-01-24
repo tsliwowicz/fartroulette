@@ -33,6 +33,30 @@
 					<target>1.6</target>
 				</configuration>
 			</plugin>
+
+
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>8.0.4.v20111024</version>
+                <configuration>
+                    <!--<useTestClasspath>true</useTestClasspath>-->
+                    <!--<useProvidedScope>true</useProvidedScope>-->
+
+                    <webAppSourceDirectory>${basedir}/src/main/webapp/</webAppSourceDirectory>
+                    <!--<useTestScope>true</useTestScope>-->
+                    <!--<useProvidedScope>true</useProvidedScope>-->
+
+                    <scanIntervalSeconds>5</scanIntervalSeconds>
+                    <!--<scanTargets>${basedir}/src/test/webapp/</scanTargets>-->
+
+                    <stopKey>stop</stopKey>
+                    <stopPort>3333</stopPort>
+                </configuration>
+
+            </plugin>
+
+
 		</plugins>
 	</build>
 </project>

@@ -38,6 +38,8 @@ import io.netty.util.CharsetUtil;
 
 import javax.activation.MimetypesFileTypeMap;
 
+import org.apache.commons.io.FilenameUtils;
+
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;
 
@@ -115,6 +117,14 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
     //private static final byte[] CONTENT = { 'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd' };
 
 
+    private static MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();
+    
+    
+    static {
+    	mimeTypesMap.addMimeTypes("text/css css");
+    	mimeTypesMap.addMimeTypes("text/javascript js");
+    }
+    
     private final boolean useSendFile;
     
 	private RunAutomaton filter;
@@ -122,6 +132,8 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
 
     public HttpStaticFileServerHandler(boolean useSendFile, String... excludePath) {
         this.useSendFile = useSendFile;
+    	
+
         
         if (excludePath == null || excludePath.length == 0) {
         	return;
@@ -448,7 +460,8 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
      *            file to extract content type
      */
     private static void setContentTypeHeader(HttpResponse response, File file) {
-        MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();
+        
+        //String ext = FilenameUtils.getExtension(file.getName());
         response.headers().set(CONTENT_TYPE, mimeTypesMap.getContentType(file.getPath()));
     }
 

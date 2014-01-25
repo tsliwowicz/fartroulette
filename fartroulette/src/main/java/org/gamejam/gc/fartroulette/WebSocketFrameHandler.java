@@ -30,15 +30,15 @@ import io.netty.util.concurrent.GlobalEventExecutor;
 
 @SuppressWarnings("unused")
 
-public class CustomTextFrameHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
-	private static final Logger s_logger = Logger.getLogger(CustomTextFrameHandler.class);
+public class WebSocketFrameHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
+	private static final Logger s_logger = Logger.getLogger(WebSocketFrameHandler.class);
 	private static AtomicInteger sid = new AtomicInteger();
 	private ChannelHandlerContext myCtx;
 	private int lsid = -1;
 	private ChannelGroup allchannels;
 	private ElevatorData elevatorData;
 	
-	public CustomTextFrameHandler(ChannelGroup allchannels, ElevatorData elevatorData) {
+	public WebSocketFrameHandler(ChannelGroup allchannels, ElevatorData elevatorData) {
 		this.allchannels = allchannels;
 		this.elevatorData = elevatorData;
 	}
@@ -46,6 +46,9 @@ public class CustomTextFrameHandler extends SimpleChannelInboundHandler<TextWebS
 
 	@Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame frame) throws Exception {
+		String request = frame.text();
+		s_logger.debug("received "+request);
+				
         /*String request = frame.text();
         ctx.channel().writeAndFlush(new TextWebSocketFrame(request.toUpperCase()));*/
         

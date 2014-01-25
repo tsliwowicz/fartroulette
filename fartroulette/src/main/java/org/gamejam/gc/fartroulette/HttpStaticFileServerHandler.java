@@ -39,6 +39,7 @@ import io.netty.util.CharsetUtil;
 import javax.activation.MimetypesFileTypeMap;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.log4j.Logger;
 
 import dk.brics.automaton.RegExp;
 import dk.brics.automaton.RunAutomaton;
@@ -109,13 +110,11 @@ import static io.netty.handler.codec.http.HttpVersion.*;
  * </pre>
  */
 public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<FullHttpRequest> {
-
+	private static final Logger s_logger = Logger.getLogger(HttpStaticFileServerHandler.class);
     public static final String HTTP_DATE_FORMAT = "EEE, dd MMM yyyy HH:mm:ss zzz";
     public static final String HTTP_DATE_GMT_TIMEZONE = "GMT";
     public static final int HTTP_CACHE_SECONDS = 60;
     
-    //private static final byte[] CONTENT = { 'H', 'e', 'l', 'l', 'o', ' ', 'W', 'o', 'r', 'l', 'd' };
-
 
     private static MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();
     
@@ -188,7 +187,7 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
             return;
         }
         
-        System.out.println(path);
+        s_logger.info(path);
 
         /*if (path.contains("wow")) {
         	FullHttpResponse response = new DefaultFullHttpResponse(HTTP_1_1, OK, Unpooled.wrappedBuffer(CONTENT));

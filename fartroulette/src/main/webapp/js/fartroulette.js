@@ -113,7 +113,6 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 
             if (window.WebSocket) {
                 socket = new WebSocket("ws://"+location.host+"/websocket");
-                socket = new WebSocket("ws://whofarted.advisopal.com:8080/websocket");
                 socket.onopen = onopen;
                 socket.onmessage = onmessage;
                 socket.onclose = onclose;

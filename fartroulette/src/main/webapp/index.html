@@ -95,7 +95,7 @@
         <div class="cover">
         </div>
 
-        <div class="stage leaderboard" ng-show="state.gameState == 'LEADERBOARD'">
+        <div class="stage leaderboard" ng-show="state.gameState == 'LEADERBOARD' && isLeader" ng-click="isLeader = false">
         <!--<div class="stage leaderboard" >-->
             <!--<div class="leader" ng-repeat="user in state.leaderBoard">-->
                 <!--<img src="{{user.avatar}}"><p>{{user.name}}</p><p class="score">{{user.score}}/{{user.numGames}}</p>-->
@@ -121,6 +121,10 @@
             <!--<div class="leader">-->
                 <!--<img src="http://graph.facebook.com/546941722/picture"><p class="score">10/20</p><p>Nitzan Volman</p>-->
             <!--</div>-->
+        </div>
+
+        <div class="stage leaderboard about" ng-show="state.gameState == 'LEADERBOARD' && !isLeader" ng-click="isLeader = true">
+
         </div>
 
 

@@ -258,6 +258,10 @@ body {
     padding-left: 45px;
 }
 
+.leaderboard .about {
+    background-image: url("../assets/About.png");
+}
+
 .leaderboard .leader {
     height: 83px;
 }

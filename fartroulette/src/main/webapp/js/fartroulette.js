@@ -23,6 +23,10 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 
     $scope.currentQ = "";
 
+    $scope.isLeader =  true;
+
+
+
 //    $scope.$watch('state.gameState', function() {
 //        alert('hey, myVar has changed!');
 //    });
@@ -39,6 +43,7 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 
         if ($scope.state.gameState == 'OPEN') {
             $scope.playSound('elevatore_before_go');
+            $scope.isLeader = true;
         }
 
         if ($scope.state.gameState == 'BEFORE') {

@@ -1,4 +1,8 @@
-
+body {
+    margin: 0;
+    padding: 0;
+    overflow:hidden;
+}
 
 .character {
     width: 30%;
@@ -10,33 +14,94 @@
 
 .character img{
     max-width: 100%;
+}
 
+.doors {
+    overflow:hidden;
 }
 
 .not-in-game {
+    position: absolute;
     display: block;
-    background-color: #ee0;
+    background-color: #fff;
+    border: black thin solid;
     cursor: pointer;
+    width: 200px;
+    height: 50px;
+    z-index: 200;
+    left: 50%;
+    margin-left: -100px;
+    top: 50%;
+    margin-top: -25px;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .elevator {
-    border: red thick solid;
+    /*border: red thick solid;*/
     padding-left: 12%;
     margin: 0 10%;
 }
 
 .door {
-    background-color: greenyellow;
-    z-index: 100;
+    position: absolute;
+    background-color: grey;
     width: 50%;
     height: 100%;
-    display: inline-block;
+    display: block;
+    transition:left 1.0s ease-in-out;
+    overflow:hidden;
+}
+
+.door.left{
+    left: 0;
+    border-right: black thin solid;
+}
+
+.open .door.left{
+    left: -51%;
+}
+
+.door.right{
+    left: 50%;
+    border-left: black thin solid;
+}
+
+.open .door.right{
+    left: 101%;
 }
 
 .stage {
-    border: blue thin solid;
+    /*border: blue thin solid;*/
     display: block;
+    z-index: 100;
 }
+
+.userlist {
+    float: right;
+    display: block;
+    border: black thin solid;
+    width: 9%;
+    height: 100%;
+    overflow: hidden;
+
+}
+
+.floor{
+    /*padding-left: 12%;*/
+    margin: 0 18% 0 21%;
+}
+
+.floorindicator{
+    display: inline-block;
+    width: 10%;
+    text-align: center;
+}
+
+.calltoaction{
+
+}
+
 
 
 

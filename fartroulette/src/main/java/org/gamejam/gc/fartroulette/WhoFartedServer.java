@@ -110,6 +110,7 @@ public class WhoFartedServer {
 			
 			Random gen = new Random(System.currentTimeMillis());
 			
+			//TODO: instead of two passes change to one
 			public List<Chars> randomizeSlots() {
 				int numSlots = ModelClasses.NUM_SLOTS;
 				Chars[] chars = ModelClasses.Chars.values();

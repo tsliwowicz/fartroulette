@@ -80,8 +80,11 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<TextWebSo
 			
 			UserData userData = elevatorData.activeUsers.get(id);
 			if (userData == null) {
-				userData = new UserData(id, name, image);
-				elevatorData.activeUsers.put(id, userData);
+				userData = elevatorData.leaderBoard.board.get(id);
+				if (userData == null) {
+					userData = new UserData(id, name, image);
+					elevatorData.activeUsers.put(id, userData);
+				}
 			}
 			
 		} else if (request.startsWith("VOTE?")) {

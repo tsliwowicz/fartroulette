@@ -163,7 +163,7 @@ public class WhoFartedServer {
 							}
 							
 							for (String u: usersToRemove) {
-								//s_elevatorData.activeUsers.remove(u);
+								s_elevatorData.activeUsers.remove(u);
 							}
 							s_elevatorData.farterSlot = "";
 							

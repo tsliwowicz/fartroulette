@@ -8,6 +8,8 @@ function getRandomInt (min, max) {
 
 var myApp = angular.module('app',[]);
 
+
+
 myApp.controller('MainCtrl', ['$scope', function($scope) {
 
     $scope.state = {};
@@ -50,6 +52,11 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 //        $location.path('/q/' + $scope.state.theQuestion);
     }, false);
 
+    $scope.highlightNum = function(idx){
+        if ($scope.state.gameState == 'OPEN_FOR_BETS')
+            return idx == 10 - timeLeftForState;
+        return false;
+    }
 
     $scope.playSound = function(sound){
         console.log("playSound");
@@ -161,6 +168,7 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
         $scope.sock = iSock.socket;
         return iSock.socket;
     }
+    $scope.initWebSocket();
 
 //    $scope.initSpot = function (){
 //            canvas = document.getElementById("spot");

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/fartroulette.css">
 </head>
 <body>
-    <div class="main" ng-controller="MainCtrl" ng-init="initWebSocket()">
+    <div class="main" ng-controller="MainCtrl">
         <div class="doors" ng-class="(showElevatorDiv() && loggedIn) ? 'open' : 'closed'">
             <div class="door left"></div>
             <div class="door right"></div>
@@ -35,7 +35,8 @@
                 <!--</div>-->
 
                 <div class="floor">
-                    <span  ng-repeat="num in [1,2,3,4,5,6,7,8,9,10]" class="floorindicator">{{num}}</span>
+                    <span  ng-repeat="num in [1,2,3,4,5,6,7,8,9,10]" class="floorindicator"
+                           ng-class="highlightNum(num) ? 'highlight' : ''">{{num}}</span>
                 </div>
 
                 <div class="calltoaction">{{currentQ}}</div>

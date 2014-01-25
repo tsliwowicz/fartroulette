@@ -17,25 +17,25 @@ public class ModelClasses {
 		public long timeLeftForState;
         public List<UserData> nonBetting = new ArrayList<UserData>();
         public List<UserData> activeUsersList = new ArrayList<UserData>();
-		public Map<String, CharacterData> charactersData = new HashMap<String, ModelClasses.CharacterData>();
+		public Map<String, SlotsData> slotsData = new HashMap<String, ModelClasses.SlotsData>();
 		public ConcurrentMap<String, UserData> activeUsers;
 		public GameState gameState;
 		public List<Chars> currSlots;
-		public String winnerSlot = "";
+		public String farterSlot = "";
 		
 		
 		@Override
 		public String toString() {
 			return "ClientModel [timeLeftForState=" + timeLeftForState
 					+ ", nonBetting=" + nonBetting + ", charactersData="
-					+ charactersData + ", activeUsers=" + activeUsers
+					+ slotsData + ", activeUsers=" + activeUsers
 					+ ", gameState=" + gameState + "]";
 		}
 		
 	}
 	
 	
-	public static class CharacterData {
+	public static class SlotsData {
 		String key;
 		Map<String, UserData> bettingUsers = new HashMap<String, ModelClasses.UserData>();
 		
@@ -115,7 +115,7 @@ public class ModelClasses {
 		public volatile GameState gameState = GameState.BEFORE;
 		public final ConcurrentMap<String, UserData> activeUsers = new ConcurrentHashMap<String, UserData>();
 		private List<Chars> currSlots = new ArrayList<ModelClasses.Chars>(4);
-		public volatile String winnerSlot = "";
+		public volatile String farterSlot = "";
 		
 		ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 		
@@ -163,7 +163,7 @@ public class ModelClasses {
 			model.timeLeftForState = timeLeftForState;
 			model.gameState = gameState;
 			model.currSlots = getCurrSlots();
-			model.winnerSlot = winnerSlot;
+			model.farterSlot = farterSlot;
 			
 			for (Entry<String, UserData> u: activeUsers.entrySet()) {
 				UserData user = u.getValue();
@@ -172,12 +172,12 @@ public class ModelClasses {
 					model.nonBetting.add(user);
 				} else {
 					for (Entry<String, Integer> bb: user.bets.entrySet()) {
-						CharacterData characterData = model.charactersData.get(bb.getKey());
-						if (characterData == null) {
-							characterData = new CharacterData();
-							model.charactersData.put(bb.getKey(), characterData);
+						SlotsData slotData = model.slotsData.get(bb.getKey());
+						if (slotData == null) {
+							slotData = new SlotsData();
+							model.slotsData.put(bb.getKey(), slotData);
 						}
-						characterData.bettingUsers.put(user.id, user);
+						slotData.bettingUsers.put(user.id, user);
 					}
 				}
 				

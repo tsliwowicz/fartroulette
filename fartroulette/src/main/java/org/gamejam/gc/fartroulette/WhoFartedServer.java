@@ -155,15 +155,15 @@ public class WhoFartedServer {
 							for (Entry<String, UserData> u: s_elevatorData.activeUsers.entrySet()) {
 								u.getValue().bets.clear();
 							}
-							s_elevatorData.winnerSlot = "";
+							s_elevatorData.farterSlot = "";
 							
 						} else if (currState == GameState.AFTER) {
 							int numSlots = ModelClasses.NUM_SLOTS;
 							int winner = Math.round(gen.nextFloat() * numSlots);
-							s_elevatorData.winnerSlot = "slot"+winner;
+							s_elevatorData.farterSlot = "slot"+winner;
 							for (Entry<String, UserData> u: s_elevatorData.activeUsers.entrySet()) {
 								ConcurrentHashMap<String, Integer> bets = u.getValue().bets;
-								Integer bet = bets.get(s_elevatorData.winnerSlot);
+								Integer bet = bets.get(s_elevatorData.farterSlot);
 								if (bet != null) {
 									u.getValue().score.addAndGet(bet);
 								}

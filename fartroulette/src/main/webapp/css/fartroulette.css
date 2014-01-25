@@ -98,6 +98,10 @@ body {
     text-align: center;
 }
 
+.highlight {
+    background-color: black;
+}
+
 .calltoaction{
     margin: 0 18% 0 21%;
     text-align: center;

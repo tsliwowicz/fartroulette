@@ -137,6 +137,7 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
                 console.log('Welcome!  Fetching your information.... ');
                 window.FB.api('/me', function(response) {
 //                    $scope.initWebSocket();
+                	
                     console.log('Good to see you, ' + response.name + '.');
                     console.log(response);
                     $scope.loggedIn = true;
@@ -145,6 +146,12 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
                     $scope.loginData.image = "http://graph.facebook.com/"+response.id+"/picture";//546941722
 
                     $scope.send("LOGIN?name="+$scope.loginData.name+"&id="+$scope.loginData.id+"&image="+$scope.loginData.image);
+                    
+                    function keepAlive() {
+                    	$scope.send("KEEPALIVE?uid="$scope.loginData.id);
+                    }
+                    window.setTimeout(keepAlive, 1000);
+                    
                     $scope.$apply();
 
                 });

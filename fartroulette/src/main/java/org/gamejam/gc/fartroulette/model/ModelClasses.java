@@ -79,7 +79,8 @@ public class ModelClasses {
 	}
 	
 	public static enum GameState {
-		BEFORE(8), 
+		OPEN(2),
+		BEFORE(6), 
 		OPEN_FOR_BETS(10), 
 		AFTER(5), 
 		LEADERBOARD(7);

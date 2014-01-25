@@ -158,8 +158,8 @@ public class WhoFartedServer {
 							s_elevatorData.farterSlot = "";
 							
 						} else if (currState == GameState.AFTER) {
-							int numSlots = ModelClasses.NUM_SLOTS;
-							int winner = Math.round(gen.nextFloat() * numSlots);
+							int numSlots = ModelClasses.NUM_SLOTS - 1;
+							int winner = Math.round(gen.nextFloat() * numSlots) + 1; //winner index is 1 based
 							s_elevatorData.farterSlot = "slot"+winner;
 							for (Entry<String, UserData> u: s_elevatorData.activeUsers.entrySet()) {
 								ConcurrentHashMap<String, Integer> bets = u.getValue().bets;

@@ -143,17 +143,27 @@ public class WhoFartedServer {
 				int currSleepInState = 0;
 				s_elevatorData.gameState = currState;
 				s_elevatorData.timeLeftForState = currState.getStateDuration() - currSleepInState;
+				List<String> usersToRemove = new ArrayList<String>();
 				while (true) {
 					if (currSleepInState > currState.getStateDuration()) {
 						currStateIndex++;
 						currStateIndex = currStateIndex % numStates;
 						currState = states[currStateIndex];
 						currSleepInState = 0;
+						long now = System.currentTimeMillis();
 						s_elevatorData.gameState = currState;
 						if (currState == GameState.OPEN) {
+							usersToRemove.clear();
 							s_elevatorData.setCurrSlots(randomizeSlots());
 							for (Entry<String, UserData> u: s_elevatorData.activeUsers.entrySet()) {
 								u.getValue().bets.clear();
+								if (now > u.getValue().lastKeepAlive + 1000*5) {
+									usersToRemove.add(u.getKey());
+								}
+							}
+							
+							for (String u: usersToRemove) {
+								//s_elevatorData.activeUsers.remove(u);
 							}
 							s_elevatorData.farterSlot = "";
 							

@@ -97,6 +97,16 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<TextWebSo
 			}
 			userData.bets.clear();
 			userData.bets.put(voted, 1);
+		} else if (request.startsWith("KEEPALIVE?")) {
+			String id = paramsMap.get("uid");
+			UserData userData = elevatorData.activeUsers.get(id);
+			if (userData != null) {
+				userData.lastKeepAlive = System.currentTimeMillis();
+			} else {
+				s_logger.error("not logged in "+id);
+			}
+		} else {
+			s_logger.error("unknown service "+request);
 		}
 		
 		//elevatorData.activeUsers.get(arg0)

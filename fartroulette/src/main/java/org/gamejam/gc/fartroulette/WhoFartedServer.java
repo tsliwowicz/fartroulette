@@ -110,7 +110,6 @@ public class WhoFartedServer {
 			
 			Random gen = new Random(System.currentTimeMillis());
 			
-			//TODO: instead of two passes change to one
 			public List<Chars> randomizeSlots() {
 				int numSlots = ModelClasses.NUM_SLOTS;
 				Chars[] chars = ModelClasses.Chars.values();
@@ -121,21 +120,14 @@ public class WhoFartedServer {
 					slotsTemp.add(c);
 				}
 				
-				int toRemove = chars.length - numSlots;
+				int toRemove = numSlots;
 				
 				while (toRemove > 0) {
 					int i = Math.round(gen.nextFloat() * (slotsTemp.size() - 1));
+					slots.add(slotsTemp.get(i));
 					slotsTemp.remove(i);
 					toRemove--;
 				}
-				
-				
-				while (slotsTemp.size() > 0) {
-					int i = Math.round(gen.nextFloat() * (slotsTemp.size() - 1));
-					slots.add(slotsTemp.get(i));
-					slotsTemp.remove(i);
-				}
-				
 				
 				return slots;
 				
@@ -146,6 +138,7 @@ public class WhoFartedServer {
 				setName("game-thread");
 				int currStateIndex = 0;
 				GameState currState = GameState.OPEN;
+				s_elevatorData.currSlots = randomizeSlots();
 				int currSleepInState = 0;
 				s_elevatorData.gameState = currState;
 				s_elevatorData.timeLeftForState = currState.getStateDuration() - currSleepInState;

@@ -22,7 +22,7 @@ public class ModelClasses {
 		public GameState gameState;
 		public List<Chars> currSlots;
 		public String farterSlot = "";
-		public LeaderBoard leaderBoard;
+		public List<UserData> leaderBoard = new ArrayList<UserData>();
 		
 		
 		@Override
@@ -170,7 +170,10 @@ public class ModelClasses {
 			model.gameState = gameState;
 			model.currSlots = getCurrSlots();
 			model.farterSlot = farterSlot;
-			model.leaderBoard = leaderBoard;
+			
+			for (Entry<String, UserData> l: leaderBoard.board.entrySet()) {
+				model.leaderBoard.add(l.getValue());
+			}
 			
 			for (Entry<String, UserData> u: activeUsers.entrySet()) {
 				UserData user = u.getValue();

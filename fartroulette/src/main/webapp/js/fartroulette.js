@@ -2,6 +2,10 @@
  * Created by nitzan on 1/24/14.
  */
 
+function getRandomInt (min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 var myApp = angular.module('app',[]);
 
 myApp.controller('MainCtrl', ['$scope', function($scope) {
@@ -17,7 +21,18 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
     $scope.loggedIn = false;
     $scope.loginData = {};
 
+    $scope.currentQ = "";
 
+//    $scope.$watch('state.gameState', function() {
+//        alert('hey, myVar has changed!');
+//    });
+
+    $scope.$watch('state.gameState', function() {
+        console.log($scope.state.gameState);
+        $scope.currentQ = $scope.questions[getRandomInt(0, $scope.questions.length-1)];
+        //the question changed
+//        $location.path('/q/' + $scope.state.theQuestion);
+    }, false);
 
 
 
@@ -27,6 +42,8 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 
     $scope.vote = function(idx) {
         console.log("voted " + idx);
+        $scope.sock.send("VOTE?voted=slot"+idx);
+
     };
 
     $scope.showElevatorDiv = function () {
@@ -44,8 +61,13 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
                 console.log('Welcome!  Fetching your information.... ');
                 window.FB.api('/me', function(response) {
                     console.log('Good to see you, ' + response.name + '.');
+                    console.log(response);
                     $scope.loggedIn = true;
-                    $scope.loginData.name = name;
+                    $scope.loginData.name = response.name;
+                    $scope.loginData.id = response.id;
+                    $scope.loginData.image = "http://graph.facebook.com/"+response.id+"/picture";//546941722
+
+                    $scope.sock.send("LOGIN?name="+$scope.loginData.name+"&id="+$scope.loginData.id+"&image="+$scope.loginData.image);
                     $scope.$apply();
 
                 });
@@ -54,7 +76,7 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
             }
         });
     };
-
+    $scope.sock = null;
     $scope.initWebSocket = function() {
         var Sock = function() {
             var socket;
@@ -108,10 +130,12 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
             document.forms.inputform.addEventListener('submit', send, false);
         }
         window.addEventListener('load', function() { new Sock(); }, false);
+        $scope.sock = Sock.socket;
+        return Sock.socket;
     }
 
-    $scope.calltoactions = [" Who just man saluted?",
-        " Who just Airbrushed thier boxers?",
+    $scope.questions = [" Who just man saluted?",
+        "Who just Airbrushed thier boxers?",
         "Whose anal acoustics was that?",
         "Who did that Anal Ahem?",
         "Who just Analy Saluted?",

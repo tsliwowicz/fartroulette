@@ -59,7 +59,7 @@ import io.netty.util.concurrent.GlobalEventExecutor;
  * etc.
  *
  */
-public class WebSocketServer {
+public class WhoFartedServer {
 	
 	private static final ChannelGroup s_allChannels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
 	//					s_allChannels.writeAndFlush(new TextWebSocketFrame("fart"));
@@ -70,7 +70,7 @@ public class WebSocketServer {
 
 	private Thread thread;
 
-    public WebSocketServer(int port) {
+    public WhoFartedServer(int port) {
         this.port = port;
     }
 

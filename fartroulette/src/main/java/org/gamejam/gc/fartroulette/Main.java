@@ -14,6 +14,6 @@ public class Main
          } else {
              port = 8080;
          }
-         new WebSocketServer(port).run();
+         new WhoFartedServer(port).run();
     }
 }

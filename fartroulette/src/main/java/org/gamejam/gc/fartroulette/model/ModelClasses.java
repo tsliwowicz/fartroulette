@@ -153,7 +153,5 @@ public class ModelClasses {
 		final ConcurrentMap<String, UserData> board = new ConcurrentHashMap<String, UserData>();
 		
 	}
-	
-	
 
 }

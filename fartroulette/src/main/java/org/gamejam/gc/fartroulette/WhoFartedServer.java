@@ -95,7 +95,7 @@ public class WhoFartedServer {
                         new HttpResponseEncoder(),
                         new HttpStaticFileServerHandler(true, "websocket", "api"),
                         new WebSocketServerProtocolHandler("/websocket"),
-                        new CustomTextFrameHandler(s_allChannels, s_elevatorData));
+                        new WebSocketFrameHandler(s_allChannels, s_elevatorData));
                     
                 }
             }).option(ChannelOption.SO_BACKLOG, 128)  

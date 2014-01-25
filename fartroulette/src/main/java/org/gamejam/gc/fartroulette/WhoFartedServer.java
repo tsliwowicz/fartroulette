@@ -154,7 +154,12 @@ public class WhoFartedServer {
 							for (Entry<String, UserData> u: s_elevatorData.activeUsers.entrySet()) {
 								u.getValue().bets.clear();
 							}
+							s_elevatorData.winnerSlot = "";
 							
+						} else if (currState == GameState.AFTER) {
+							int numSlots = ModelClasses.NUM_SLOTS;
+							int winner = Math.round(gen.nextFloat() * numSlots);
+							s_elevatorData.winnerSlot = "slot"+winner;
 						}
 					}
 					s_elevatorData.timeLeftForState = currState.getStateDuration() - currSleepInState;

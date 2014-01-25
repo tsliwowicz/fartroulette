@@ -71,6 +71,16 @@ public class CustomTextFrameHandler extends SimpleChannelInboundHandler<TextWebS
 	}
 
 
+	@Override
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
+			throws Exception {
+		s_logger.error("exceptionCaught "+lsid, cause);
+		super.exceptionCaught(ctx, cause);
+	}
+	
+	
+
+
 	
     
     

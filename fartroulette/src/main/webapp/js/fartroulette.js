@@ -44,11 +44,22 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
         if ($scope.state.gameState == 'BEFORE') {
             $scope.playSound('fart'+getRandomInt(1,4));
         }
+        if ($scope.state.gameState == 'AFTER') {
+//            console.log($scope.state.farterSlot);
+//            console.log($scope.state.farterSlot.substring(4,5));
+//            console.log('farter/' +  $scope.state.currSlots[parseInt($scope.state.farterSlot.substring(4,5))]);
+            $scope.playSound('farter/' +  $scope.state.currSlots[parseInt($scope.state.farterSlot.substring(4,5))-1]  );
+//            $scope.state.farterSlot
+//            $scope.state.curr
+//            $scope.playSound('fart'+getRandomInt(1,4));
+        }
 //        BEFORE
 
         //the question changed
 //        $location.path('/q/' + $scope.state.theQuestion);
     }, false);
+
+
 
     $scope.highlightNum = function(idx){
         if ('OPEN_FOR_BETS' == $scope.state.gameState )
@@ -71,7 +82,29 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
         if ('OPEN_FOR_BETS' == $scope.state.gameState ) {
             $scope.send("VOTE?voted=slot"+idx+"&uid="+$scope.loginData.id);
         }
+        console.log($scope.state.currSlots);
+        console.log($scope.state);
     };
+
+    $scope.didvoteon = function(idx){
+        if ( ('OPEN_FOR_BETS' == $scope.state.gameState ) &&
+            ($scope.state.slotsData['slot'+idx] != undefined) &&
+            $scope.state.slotsData['slot'+idx].bettingUsers[$scope.loginData.id] ){
+            return true;
+        }
+        return false;
+    }
+
+    $scope.didvoteonstyle = function(idx){
+        return "left: {" + idx * 23 + "}%";
+    }
+
+    $scope.didcharfart = function(idx) {
+        if ('AFTER' == $scope.state.gameState  &&  (("slot"+idx) == $scope.state.farterSlot) ){
+            return true;
+        }
+        return false;
+    }
 
     $scope.slotImg = function(idx) {
         return $scope.state.currSlots[idx-1];

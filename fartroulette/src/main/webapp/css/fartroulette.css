@@ -50,6 +50,54 @@ body {
     width: 100%;
 }
 
+.farter {
+    height: 14%;
+    position: absolute;
+    top: 5%;
+    width: 16%;
+}
+.farter1 {
+    left: -10%;
+}
+
+.farter2 {
+    left: 10%;
+}
+
+.farter3 {
+    left: 30%;
+}
+
+.farter4 {
+    left: 50%;
+}
+
+.myvote {
+    background-image: url("../assets/arrow.png");
+    background-size: 100% 100%;
+    height: 7%;
+    left: 0;
+    position: absolute;
+    top: 5%;
+    width: 7%;
+}
+
+.myvote1 {
+    left: 0;
+}
+
+.myvote2 {
+    left: 23%;
+}
+
+.myvote3 {
+    left: 46%;
+}
+
+.myvote4 {
+    left: 69%;
+}
+
 .doors {
     overflow:hidden;
 }
@@ -171,6 +219,49 @@ body {
 .indicators {
     height: 30px;
 }
+
+.leaderboard {
+    position: absolute;
+    z-index: 500;
+    width: 787px;
+    height: 615px;
+    background-image: url("../assets/LeaderBoard.png");
+    background-repeat:no-repeat;
+    top: 50px;
+    left: 50%;
+    margin-left: -392px;
+
+    padding-top: 115px;
+    padding-left: 45px;
+}
+
+.leaderboard .leader {
+    height: 83px;
+}
+
+.leaderboard .leader img {
+    float: left;
+    margin-right: 20px;
+}
+
+.leaderboard .leader p {
+    float: right;
+    font-family: 'Russo One',sans-serif;
+    margin-right: 150px;
+    width: 300px;
+}
+
+.leaderboard .leader p.score {
+    float: right;
+    width: 80px;
+    font-family: 'Russo One', sans-serif;
+}
+
+.leaderboard.about {
+    background-image: url("../assets/About.png");
+}
+
+
 
 
 

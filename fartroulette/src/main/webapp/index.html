@@ -68,24 +68,53 @@
                 <div class="indicators"></div>
 
                 <div class="elevator">
-                    <div class="character" ng-click="vote(1)"><img src="assets/{{slotImg(1)}}.png"></div>
-                    <div class="character" ng-click="vote(2)"><img src="assets/{{slotImg(2)}}.png"></div>
-                    <div class="character" ng-click="vote(3)"><img src="assets/{{slotImg(3)}}.png"></div>
-                    <div class="character" ng-click="vote(4)"><img src="assets/{{slotImg(4)}}.png"></div>
+                    <span  ng-repeat="num in [1,2,3,4]" class="character"
+                           ng-click="vote(num)">
+                        <div class="farter farter{{num}}" ng-show="didcharfart(num)"><img src="assets/Bubbles/{{slotImg(num)}}.png"></div>
+                        <div class="myvote myvote{{num}}" ng-show="didvoteon(num)"></div>
+                        <img src="assets/{{slotImg(num)}}.png"></span>
+                    <!--<div class="character" ng-click="vote(1)"><div class="myvote" ng-show="didvoteon(1)" style="left: 0"></div><img src="assets/{{slotImg(1)}}.png"></div>-->
+                    <!--<div class="character" ng-click="vote(2)"><div class="myvote" ng-show="didvoteon(2)" style="left: 23%"></div><img src="assets/{{slotImg(2)}}.png"></div>-->
+                    <!--<div class="character" ng-click="vote(3)"><div class="myvote" ng-show="didvoteon(3)" style="left: 46%"></div><img src="assets/{{slotImg(3)}}.png"></div>-->
+                    <!--<div class="character" ng-click="vote(4)"><div class="myvote" ng-show="didvoteon(4)" style="left: 69%"></div><img src="assets/{{slotImg(4)}}.png"></div>-->
                 </div>
             </div>
 
 
-            <div class="stage" ng-show="state.stage == 'after'">
-                {{stage}}
-            </div>
 
 
 
         </div>
 
         <div class="cover">
+        </div>
 
+        <div class="stage leaderboard" ng-show="state.gameState == 'LEADERBOARD'">
+        <!--<div class="stage leaderboard" >-->
+            <!--<div class="leader" ng-repeat="user in state.leaderBoard">-->
+                <!--<img src="{{user.avatar}}"><p>{{user.name}}</p><p class="score">{{user.score}}/{{user.numGames}}</p>-->
+            <!--</div>-->
+            <div class="leader" ng-repeat="user in state.leaderBoard">
+                <img src="{{user.avatar}}"><p class="score">{{user.score.value}}/{{user.numGames.value}}</p><p>{{user.name}}</p>
+            </div>
+            <!--<div class="leader">-->
+                <!--<img src="http://graph.facebook.com/546941722/picture"><p class="score">10/20</p><p>Nitzan Volman</p>-->
+            <!--</div>-->
+            <!--<div class="leader">-->
+                <!--<img src="http://graph.facebook.com/546941722/picture"><p class="score">10/20</p><p>Nitzan Volman</p>-->
+            <!--</div>-->
+            <!--<div class="leader">-->
+                <!--<img src="http://graph.facebook.com/546941722/picture"><p class="score">10/20</p><p>Nitzan Volman</p>-->
+            <!--</div>-->
+            <!--<div class="leader">-->
+                <!--<img src="http://graph.facebook.com/546941722/picture"><p class="score">10/20</p><p>Nitzan Volman</p>-->
+            <!--</div>-->
+            <!--<div class="leader">-->
+                <!--<img src="http://graph.facebook.com/546941722/picture"><p class="score">10/20</p><p>Nitzan Volman</p>-->
+            <!--</div>-->
+            <!--<div class="leader">-->
+                <!--<img src="http://graph.facebook.com/546941722/picture"><p class="score">10/20</p><p>Nitzan Volman</p>-->
+            <!--</div>-->
         </div>
 
 

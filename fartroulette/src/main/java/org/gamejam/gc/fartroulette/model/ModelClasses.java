@@ -77,10 +77,10 @@ public class ModelClasses {
 	}
 	
 	public static enum GameState {
-		BEFORE(10), 
-		OPEN_FOR_BETS(30), 
-		AFTER(10), 
-		LEADERBOARD(10);
+		BEFORE(8), 
+		OPEN_FOR_BETS(10), 
+		AFTER(5), 
+		LEADERBOARD(7);
 		
 		private int stateDuration;
 		

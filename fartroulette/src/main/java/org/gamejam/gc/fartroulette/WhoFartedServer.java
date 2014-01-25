@@ -167,6 +167,11 @@ public class WhoFartedServer {
 								if (bet != null) {
 									u.getValue().score.addAndGet(bet);
 								}
+								u.getValue().numGames.incrementAndGet();
+								UserData userData = s_elevatorData.leaderBoard.board.get(u.getKey());
+								if (userData == null) {
+									s_elevatorData.leaderBoard.board.put(u.getKey(), u.getValue());
+								}
 							}
 						}
 					}

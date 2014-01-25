@@ -22,6 +22,7 @@ public class ModelClasses {
 		public GameState gameState;
 		public List<Chars> currSlots;
 		public String farterSlot = "";
+		public LeaderBoard leaderBoard;
 		
 		
 		@Override
@@ -55,6 +56,7 @@ public class ModelClasses {
 		public final String name;
 		public final String avatar;
 		public final AtomicLong score = new AtomicLong();
+		public final AtomicLong numGames = new AtomicLong();
 		public final ConcurrentHashMap<String, Integer> bets = new ConcurrentHashMap<String, Integer>();
 		public volatile Animation animation = Animation.NONE;
 		
@@ -116,6 +118,7 @@ public class ModelClasses {
 		public final ConcurrentMap<String, UserData> activeUsers = new ConcurrentHashMap<String, UserData>();
 		private List<Chars> currSlots = new ArrayList<ModelClasses.Chars>(4);
 		public volatile String farterSlot = "";
+		public final LeaderBoard leaderBoard = new LeaderBoard();
 		
 		ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 		
@@ -164,6 +167,7 @@ public class ModelClasses {
 			model.gameState = gameState;
 			model.currSlots = getCurrSlots();
 			model.farterSlot = farterSlot;
+			model.leaderBoard = leaderBoard;
 			
 			for (Entry<String, UserData> u: activeUsers.entrySet()) {
 				UserData user = u.getValue();
@@ -194,7 +198,7 @@ public class ModelClasses {
 	}
 	
 	public static class LeaderBoard {
-		final ConcurrentMap<String, UserData> board = new ConcurrentHashMap<String, UserData>();
+		public final ConcurrentMap<String, UserData> board = new ConcurrentHashMap<String, UserData>();
 		
 	}
 

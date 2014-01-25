@@ -90,7 +90,7 @@ public class ModelClasses {
 		BEFORE(2), 
 		OPEN_FOR_BETS(10), 
 		AFTER(5), 
-		LEADERBOARD(7);
+		LEADERBOARD(5);
 		
 		private int stateDuration;
 		

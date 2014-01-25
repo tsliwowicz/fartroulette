@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
 
 import org.apache.log4j.Logger;
 import org.gamejam.gc.fartroulette.model.ModelClasses;
@@ -160,6 +161,13 @@ public class WhoFartedServer {
 							int numSlots = ModelClasses.NUM_SLOTS;
 							int winner = Math.round(gen.nextFloat() * numSlots);
 							s_elevatorData.winnerSlot = "slot"+winner;
+							for (Entry<String, UserData> u: s_elevatorData.activeUsers.entrySet()) {
+								ConcurrentHashMap<String, Integer> bets = u.getValue().bets;
+								Integer bet = bets.get(s_elevatorData.winnerSlot);
+								if (bet != null) {
+									u.getValue().score.addAndGet(bet);
+								}
+							}
 						}
 					}
 					s_elevatorData.timeLeftForState = currState.getStateDuration() - currSleepInState;

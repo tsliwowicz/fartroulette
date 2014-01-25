@@ -184,7 +184,7 @@ public class ModelClasses {
 					@Override
 					public int compare(UserData arg0, UserData arg1) {
 						
-						return arg0.score.intValue() - arg1.score.intValue();
+						return  arg1.score.intValue() - arg0.score.intValue();
 					}
 				});
 			}

@@ -111,6 +111,16 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 
     };
 
+    $scope.slotIdxToImages = function(idx) {
+        if ($scope.state.slotsData && $scope.state.slotsData["slot" + idx] && $scope.state.slotsData["slot" + idx].bettingAvatars){
+            console.log($scope.state.slotsData["slot" + idx].bettingAvatars);
+            return  $scope.state.slotsData["slot" + idx].bettingAvatars;
+        } else {
+            return [];
+        }
+
+    }
+
     $scope.showElevatorDiv = function () {
 //        console.log($scope.state);
 //        console.log($scope.state.timeLeftForState);

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/fartroulette.css">
 </head>
 <body>
-    <div class="main" ng-controller="MainCtrl">
+    <div class="main" ng-controller="MainCtrl" ng-init="initWebSocket()">
         <div class="doors" ng-class="(showElevatorDiv() && loggedIn) ? 'open' : 'closed'">
             <div class="door left"></div>
             <div class="door right"></div>

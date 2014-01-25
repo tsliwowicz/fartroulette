@@ -8,8 +8,6 @@ function getRandomInt (min, max) {
 
 var myApp = angular.module('app',[]);
 
-
-
 myApp.controller('MainCtrl', ['$scope', function($scope) {
 
     $scope.state = {};
@@ -53,8 +51,8 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
     }, false);
 
     $scope.highlightNum = function(idx){
-        if ($scope.state.gameState == 'OPEN_FOR_BETS')
-            return idx == 10 - timeLeftForState;
+        if ('OPEN_FOR_BETS' == $scope.state.gameState )
+            return idx == $scope.state.timeLeftForState;
         return false;
     }
 
@@ -70,8 +68,9 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 
     $scope.vote = function(idx) {
         console.log("voted " + idx);
-        $scope.sock.send("VOTE?voted=slot"+idx);
-
+        if ('OPEN_FOR_BETS' == $scope.state.gameState ) {
+            $scope.send("VOTE?voted=slot"+idx);
+        }
     };
 
     $scope.slotImg = function(idx) {
@@ -94,6 +93,7 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
             if (response.authResponse) {
                 console.log('Welcome!  Fetching your information.... ');
                 window.FB.api('/me', function(response) {
+//                    $scope.initWebSocket();
                     console.log('Good to see you, ' + response.name + '.');
                     console.log(response);
                     $scope.loggedIn = true;
@@ -101,7 +101,7 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
                     $scope.loginData.id = response.id;
                     $scope.loginData.image = "http://graph.facebook.com/"+response.id+"/picture";//546941722
 
-                    $scope.sock.send("LOGIN?name="+$scope.loginData.name+"&id="+$scope.loginData.id+"&image="+$scope.loginData.image);
+                    $scope.send("LOGIN?name="+$scope.loginData.name+"&id="+$scope.loginData.id+"&image="+$scope.loginData.image);
                     $scope.$apply();
 
                 });
@@ -110,8 +110,9 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
             }
         });
     };
-    $scope.sock = {send: function(){console.log("no socket defined yet")}};
+
     $scope.initWebSocket = function() {
+        console.log("initWebSocket");
         var Sock = function() {
             var socket;
             if (!window.WebSocket) {
@@ -120,9 +121,13 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 
             if (window.WebSocket) {
                 socket = new WebSocket("ws://"+location.host+"/websocket");
+
                 socket.onopen = onopen;
                 socket.onmessage = onmessage;
                 socket.onclose = onclose;
+//                socket.send = send;
+
+                $scope.send = send;
             } else {
                 alert("Your browser does not support Web Socket.");
             }
@@ -152,23 +157,24 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 //            }
 
             function send(event) {
-                event.preventDefault();
+                console.log(event);
+//                event.preventDefault();
                 if (window.WebSocket) {
                     if (socket.readyState == WebSocket.OPEN) {
-                        socket.send(event.target.message.value);
+                        socket.send(event);
                     } else {
                         alert("The socket is not open.");
                     }
                 }
             }
-            document.forms.inputform.addEventListener('submit', send, false);
+//            document.forms.inputform.addEventListener('submit', send, false);
         }
-        var iSock =  new Sock();
-        window.addEventListener('load', function() { new Sock(); }, false);
-        $scope.sock = iSock.socket;
-        return iSock.socket;
+        window.addEventListener('load', function() {
+            console.log("loading sock")
+            new Sock();
+//            $scope.sock = iSock.socket;
+        }, false);
     }
-    $scope.initWebSocket();
 
 //    $scope.initSpot = function (){
 //            canvas = document.getElementById("spot");

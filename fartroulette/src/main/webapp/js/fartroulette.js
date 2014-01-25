@@ -13,7 +13,7 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
     $scope.state = {};
 //    $scope.state.gameState = 'selection';    //before, selection, after, leaderboard
 
-//    BEFORE(10),
+//        BEFORE(10),
 //        OPEN_FOR_BETS(30),
 //        AFTER(10),
 //        LEADERBOARD(10);
@@ -29,12 +29,27 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 
     $scope.$watch('state.gameState', function() {
         console.log($scope.state.gameState);
-        $scope.currentQ = $scope.questions[getRandomInt(0, $scope.questions.length-1)];
+        if ($scope.state.gameState == 'OPEN_FOR_BETS') {
+            $scope.currentQ = $scope.questions[getRandomInt(0, $scope.questions.length-1)];
+        } else {
+            $scope.currentQ = " ";
+        }
+
+        if ($scope.state.gameState == 'BEFORE') {
+            $scope.playSound('ss');
+        }
+//        BEFORE
+
         //the question changed
 //        $location.path('/q/' + $scope.state.theQuestion);
     }, false);
 
 
+    $scope.playSound = function(sound){
+        console.log("playSound");
+        var snd = new Audio("assets/fart1.mp3"); // buffers automatically when created
+        snd.play();
+    }
 
     $scope.changestage = function(stage) {
         $scope.state.gameState = stage;
@@ -51,7 +66,8 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 //        console.log($scope.state.timeLeftForState);
 //        console.log($scope.state.gameState);
 //        console.log($scope.state.activeUsersList);
-        return $scope.state.gameState == 'BEFORE' || $scope.state.gameState == 'OPEN_FOR_BETS' || $scope.state.gameState == 'AFTER';
+//        return $scope.state.gameState == 'BEFORE' || $scope.state.gameState == 'OPEN_FOR_BETS' || $scope.state.gameState == 'AFTER';
+        return $scope.state.gameState != 'LEADERBOARD'
     }
 
     $scope.login = function() {
@@ -86,6 +102,7 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 
             if (window.WebSocket) {
                 socket = new WebSocket("ws://"+location.host+"/websocket");
+                socket = new WebSocket("ws://whofarted.advisopal.com:8080/websocket");
                 socket.onopen = onopen;
                 socket.onmessage = onmessage;
                 socket.onclose = onclose;
@@ -133,6 +150,20 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
         $scope.sock = Sock.socket;
         return Sock.socket;
     }
+
+//    $scope.initSpot = function (){
+//            canvas = document.getElementById("spot");
+//            canvas.width  = window.innerWidth;
+//            canvas.height = window.innerHeight;
+//            exportRoot = new lib.spot3();
+//
+//            stage = new createjs.Stage(canvas);
+//            stage.addChild(exportRoot);
+//            stage.update();
+//
+//            createjs.Ticker.setFPS(lib.properties.fps);
+//            createjs.Ticker.addEventListener("tick", stage);
+//    }
 
     $scope.questions = [" Who just man saluted?",
         "Who just Airbrushed thier boxers?",

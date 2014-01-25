@@ -26,6 +26,7 @@ import org.gamejam.gc.fartroulette.model.ModelClasses.UserData;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelOption;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.group.ChannelGroup;
 import io.netty.channel.group.DefaultChannelGroup;
@@ -97,7 +98,9 @@ public class WhoFartedServer {
                         new CustomTextFrameHandler(s_allChannels, s_elevatorData));
                     
                 }
-            });
+            }).option(ChannelOption.SO_BACKLOG, 128)  
+            	.option(ChannelOption.SO_TIMEOUT, 100)        
+            .childOption(ChannelOption.SO_KEEPALIVE, true); 
             
     		loadDummyData();
             

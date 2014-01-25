@@ -69,7 +69,7 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
     $scope.vote = function(idx) {
         console.log("voted " + idx);
         if ('OPEN_FOR_BETS' == $scope.state.gameState ) {
-            $scope.send("VOTE?voted=slot"+idx);
+            $scope.send("VOTE?voted=slot"+idx+"&uid="+$scope.loginData.id);
         }
     };
 

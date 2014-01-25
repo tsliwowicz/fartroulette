@@ -138,7 +138,7 @@ public class WhoFartedServer {
 				setName("game-thread");
 				int currStateIndex = 0;
 				GameState currState = GameState.OPEN;
-				s_elevatorData.currSlots = randomizeSlots();
+				s_elevatorData.setCurrSlots(randomizeSlots());
 				int currSleepInState = 0;
 				s_elevatorData.gameState = currState;
 				s_elevatorData.timeLeftForState = currState.getStateDuration() - currSleepInState;
@@ -150,7 +150,7 @@ public class WhoFartedServer {
 						currSleepInState = 0;
 						s_elevatorData.gameState = currState;
 						if (currState == GameState.OPEN) {
-							s_elevatorData.currSlots = randomizeSlots();
+							s_elevatorData.setCurrSlots(randomizeSlots());
 							for (Entry<String, UserData> u: s_elevatorData.activeUsers.entrySet()) {
 								u.getValue().bets.clear();
 							}
@@ -197,7 +197,7 @@ public class WhoFartedServer {
 		updateThread.start();
 	}
 
-	private void loadDummyData() {
+	/*private void loadDummyData() {
 		UserData userData1 = new ModelClasses.UserData("id1", "myname", "myavatar");
 		UserData userData2 = new ModelClasses.UserData("id2", "myname2", "myavatar2");
 		userData1.bets.put("char1", 1);
@@ -205,7 +205,7 @@ public class WhoFartedServer {
 		s_elevatorData.activeUsers.put("1", userData1);
 		s_elevatorData.activeUsers.put("2", userData2);
 		s_elevatorData.gameState = GameState.OPEN_FOR_BETS;
-	}
+	}*/
 
 
 }

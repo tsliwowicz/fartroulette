@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.google.gson.Gson;
 
@@ -20,6 +21,7 @@ public class ModelClasses {
 		public ConcurrentMap<String, UserData> activeUsers;
 		public GameState gameState;
 		public List<Chars> currSlots;
+		public String winnerSlot = "";
 		
 		
 		@Override
@@ -109,16 +111,40 @@ public class ModelClasses {
 	
 	
 	public static class ElevatorData {
-		public long timeLeftForState = 0;
-		public GameState gameState = GameState.BEFORE;
+		public volatile long timeLeftForState = 0;
+		public volatile GameState gameState = GameState.BEFORE;
 		public final ConcurrentMap<String, UserData> activeUsers = new ConcurrentHashMap<String, UserData>();
-		public List<Chars> currSlots = new ArrayList<ModelClasses.Chars>(4);
+		private List<Chars> currSlots = new ArrayList<ModelClasses.Chars>(4);
+		public volatile String winnerSlot = "";
+		
+		ReentrantReadWriteLock lock = new ReentrantReadWriteLock();
 		
 		public ElevatorData() {
 			currSlots.add(Chars.Char_01);
 			currSlots.add(Chars.Char_02);
 			currSlots.add(Chars.Char_03);
 			currSlots.add(Chars.Char_06);
+		}
+		
+		public List<Chars> getCurrSlots() {
+			List<Chars> rt;
+			lock.readLock().lock();
+			try {
+				rt = new ArrayList<Chars>(currSlots);
+				
+			} finally {
+				lock.readLock().unlock();
+			}
+			return rt;
+		}
+		
+		public void setCurrSlots(List<Chars> slots) {
+			lock.writeLock().lock();
+			try {
+				currSlots = new ArrayList<Chars>(slots);
+			} finally {
+				lock.writeLock().unlock();
+			}
 		}
 		
 		
@@ -136,7 +162,8 @@ public class ModelClasses {
 			model.activeUsers = activeUsers;
 			model.timeLeftForState = timeLeftForState;
 			model.gameState = gameState;
-			model.currSlots = currSlots;
+			model.currSlots = getCurrSlots();
+			model.winnerSlot = winnerSlot;
 			
 			for (Entry<String, UserData> u: activeUsers.entrySet()) {
 				UserData user = u.getValue();

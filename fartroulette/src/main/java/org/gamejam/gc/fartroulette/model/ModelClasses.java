@@ -14,7 +14,8 @@ import com.google.gson.Gson;
 public class ModelClasses {
 	public static class ClientModel {
 		public long timeLeftForState;
-		public List<UserData> nonBetting = new ArrayList<UserData>();
+        public List<UserData> nonBetting = new ArrayList<UserData>();
+        public List<UserData> activeUsersList = new ArrayList<UserData>();
 		public Map<String, CharacterData> charactersData = new HashMap<String, ModelClasses.CharacterData>();
 		public ConcurrentMap<Integer, UserData> activeUsers;
 		public GameState gameState;
@@ -122,6 +123,7 @@ public class ModelClasses {
 			
 			for (Entry<Integer, UserData> u: activeUsers.entrySet()) {
 				UserData user = u.getValue();
+                model.activeUsersList.add(user);
 				if (user.bets.size() == 0) {
 					model.nonBetting.add(user);
 				} else {

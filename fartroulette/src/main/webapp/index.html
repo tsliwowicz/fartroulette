@@ -15,30 +15,37 @@
     <link rel="stylesheet" href="css/fartroulette.css">
 </head>
 <body>
-    <div class="main" ng-controller="MainCtrl">
+    <div class="main" ng-controller="MainCtrl" ng-init="initWebSocket()">
+        <div class="doors" ng-class="(showElevatorDiv() && loggedIn) ? 'open' : 'closed'">
+            <div class="door left"></div>
+            <div class="door right"></div>
+        </div>
+
+
         <div class="not-in-game" ng-show="!loggedIn">
             <div ng-click="login()">log in to join {{loggedIn}}</div>
         </div>
 
 
         <div class="in-game" ng-show="loggedIn">
-            <div class="stage" ng-show="state.stage == 'before'">
-                {{stage}}
-            </div>
 
-            <div class="stage" ng-show="showElevatorDiv()">
+            <div class="stage">
+
+                <div class="floor">
+                    <span  ng-repeat="num in [1,2,3,4,5,6,7,8,9,10]" class="floorindicator">{{num}}</span>
+                </div>
+
+                <div class="calltoaction">dd</div>
+
+                <div class="userlist">
+                    <div ng-repeat="user in state.activeUsersList">a</div>
+                </div>
+
                 <div class="elevator">
                     <div class="character" ng-click="vote(1)"><img src="assets/Char_01.png"></div>
                     <div class="character" ng-click="vote(2)"><img src="assets/Char_02.png"></div>
                     <div class="character" ng-click="vote(3)"><img src="assets/Char_03.png"></div>
                     <div class="character" ng-click="vote(4)"><img src="assets/Char_04.png"></div>
-                </div>
-                <div class="doors">
-                    <div class="door left">aa</div>
-                    <div class="door right">aa</div>
-                </div>
-                <div class="user-list">
-                    user user user
                 </div>
             </div>
 
@@ -50,7 +57,7 @@
         </div>
 
 
-
+        <!--<div ng-click="changestage('leaderboard')">aaa</div>-->
     </div>
     <div id="fb-root"></div>
     <script>

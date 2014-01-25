@@ -126,7 +126,7 @@ public class HttpStaticFileServerHandler extends SimpleChannelInboundHandler<Ful
     	mimeTypesMap.addMimeTypes("text/html html htm");
     	mimeTypesMap.addMimeTypes("image/png png");
     	mimeTypesMap.addMimeTypes("image/jpeg jpg jpeg");
-    	mimeTypesMap.addMimeTypes("audio/mpeg3 mp3");
+    	mimeTypesMap.addMimeTypes("audio/mpeg mp3");
     }
     
     private final boolean useSendFile;

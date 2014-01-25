@@ -148,7 +148,7 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
                     $scope.send("LOGIN?name="+$scope.loginData.name+"&id="+$scope.loginData.id+"&image="+$scope.loginData.image);
                     
                     function keepAlive() {
-                    	$scope.send("KEEPALIVE?uid="$scope.loginData.id);
+                    	$scope.send("KEEPALIVE?uid="+$scope.loginData.id);
                     }
                     window.setTimeout(keepAlive, 1000);
                     

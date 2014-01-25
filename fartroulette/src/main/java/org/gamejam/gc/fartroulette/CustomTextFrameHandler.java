@@ -18,6 +18,7 @@ package org.gamejam.gc.fartroulette;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import org.apache.log4j.Logger;
 import org.gamejam.gc.fartroulette.model.ModelClasses.ElevatorData;
 
 import io.netty.channel.ChannelHandlerContext;
@@ -30,6 +31,7 @@ import io.netty.util.concurrent.GlobalEventExecutor;
 @SuppressWarnings("unused")
 
 public class CustomTextFrameHandler extends SimpleChannelInboundHandler<TextWebSocketFrame> {
+	private static final Logger s_logger = Logger.getLogger(CustomTextFrameHandler.class);
 	private static AtomicInteger sid = new AtomicInteger();
 	private ChannelHandlerContext myCtx;
 	private int lsid = -1;
@@ -52,7 +54,9 @@ public class CustomTextFrameHandler extends SimpleChannelInboundHandler<TextWebS
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
+		
 		lsid = sid.incrementAndGet();
+		s_logger.info("channelActive "+lsid);
 		myCtx = ctx;
 		allchannels.add(ctx.channel());
 		super.channelActive(ctx);
@@ -60,6 +64,7 @@ public class CustomTextFrameHandler extends SimpleChannelInboundHandler<TextWebS
 
 	@Override
 	public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+		s_logger.info("channelInactive "+lsid);
 		myCtx = null;
 		lsid = -1;
 		super.channelInactive(ctx);

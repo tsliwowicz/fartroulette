@@ -1,19 +1,53 @@
+/*font-family: 'Russo One', sans-serif;*/
+/*font-family: 'Geo', sans-serif;*/
+
+
 body {
     margin: 0;
     padding: 0;
     overflow:hidden;
 }
 
+.cover {
+    background-image: url("../assets/bgr.png");
+
+
+    background-size: 100% 100%;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: 300;
+    top: 0;
+    /*background:transparent;*/
+    pointer-events:none;
+}
+
+.in-game .stage {
+    padding-top: 5%;
+
+}
+
+.elevator_bg {
+    background-image: url("../assets/elevator.png");
+    background-size: 100% 100%;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    z-index: -300;
+    top: 0;
+}
+
 .character {
-    width: 30%;
-    /*background-color: #0ee;*/
-    margin-left: -8%;
-    display: inline-block;
     cursor: pointer;
+    display: inline-block;
+    height: 100%;
+    margin-left: -14%;
+    width: 36%;
 }
 
 .character img{
-    max-width: 100%;
+    height: 100%;
+    width: 100%;
 }
 
 .doors {
@@ -23,34 +57,43 @@ body {
 .not-in-game {
     position: absolute;
     display: block;
-    background-color: #fff;
-    border: black thin solid;
-    cursor: pointer;
-    width: 200px;
-    height: 50px;
+    width: 258px;
+    height: 98px;
     z-index: 200;
     left: 50%;
-    margin-left: -100px;
+    margin-left: -129px;
     top: 50%;
-    margin-top: -25px;
+    margin-top: -49px;
     text-align: center;
     vertical-align: middle;
 }
 
+.not-in-game div {
+    background-image: url(../assets/btn_login.png);
+    width: 258px;
+    height: 98px;
+    cursor: pointer;
+}
+
 .elevator {
-    /*border: red thick solid;*/
-    padding-left: 12%;
-    margin: 0 10%;
+    bottom: 5%;
+    left: 28%;
+    position: absolute;
+    right: 15%;
+    top: 20%;
 }
 
 .door {
     position: absolute;
-    background-color: grey;
+    /*background-color: grey;*/
+    background-image: url(../assets/door.png);
+    background-size: 100% 100%;
     width: 50%;
     height: 100%;
     display: block;
     transition:left 1.0s ease-in-out;
     overflow:hidden;
+    z-index: 2;
 }
 
 .door.left{
@@ -88,25 +131,45 @@ body {
 }
 
 .floor{
-    /*padding-left: 12%;*/
-    margin: 0 18% 0 21%;
+    background-color: #000000;
+    position: absolute;
+    top: 0.5%;
+    left: 10%;
+    right: 10%;
+    z-index: 400;
 }
 
 .floorindicator{
     display: inline-block;
-    width: 10%;
+    width: 9%;
     text-align: center;
+    font-family: 'Russo One', sans-serif;
+    /*font-family: 'Geo', sans-serif;*/
+    color: white;
 }
 
 .highlight {
-    background-color: black;
+    /*background-color: black;*/
+    color: #32d6fc;
 }
 
 .calltoaction{
-    margin: 0 18% 0 21%;
-    text-align: center;
-    width: 60%;
+    color: #FFFFFF;
+    font-family: 'Russo One',sans-serif;
+    font-size: 2.5em;
     height: 1.2em;
+    left: 0;
+    margin: 0 10% 0 10%;
+    position: absolute;
+    text-align: center;
+    text-shadow: 3px 4px 2px #969696;
+    top: 13%;
+    width: 80%;
+    z-index: 6;
+}
+
+.indicators {
+    height: 30px;
 }
 
 

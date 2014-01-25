@@ -2,7 +2,7 @@
 <html ng-app="app">
 <head>
     <title>Fart Roulette</title>
-    <link href='http://fonts.googleapis.com/css?family=Russo+One' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Russo+One|Geo' rel='stylesheet' type='text/css'>
     <script src="http://code.createjs.com/easeljs-0.7.0.min.js"></script>
     <script src="http://code.createjs.com/tweenjs-0.5.0.min.js"></script>
     <script src="http://code.createjs.com/movieclip-0.7.0.min.js"></script>
@@ -39,7 +39,7 @@
 
 
         <div class="not-in-game" ng-show="!loggedIn">
-            <div ng-click="login()">log in to join {{loggedIn}}</div>
+            <div ng-click="login()"></div>
         </div>
 
 
@@ -50,16 +50,22 @@
                     <!--<canvas id="spot"></canvas>-->
                 <!--</div>-->
 
+                <div class="elevator_bg">
+
+                </div>
+
                 <div class="floor">
-                    <span  ng-repeat="num in [1,2,3,4,5,6,7,8,9,10]" class="floorindicator"
+                    <span  ng-repeat="num in [0,1,2,3,4,5,6,7,8,9,10]" class="floorindicator"
                            ng-class="highlightNum(num) ? 'highlight' : ''">{{num}}</span>
                 </div>
 
                 <div class="calltoaction">{{currentQ}}</div>
 
-                <div class="userlist">
-                    <div ng-repeat="user in state.activeUsersList">a</div>
-                </div>
+                <!--<div class="userlist">-->
+                    <!--<div ng-repeat="user in state.activeUsersList">a</div>-->
+                <!--</div>-->
+
+                <div class="indicators"></div>
 
                 <div class="elevator">
                     <div class="character" ng-click="vote(1)"><img src="assets/{{slotImg(1)}}.png"></div>
@@ -73,6 +79,12 @@
             <div class="stage" ng-show="state.stage == 'after'">
                 {{stage}}
             </div>
+
+
+
+        </div>
+
+        <div class="cover">
 
         </div>
 

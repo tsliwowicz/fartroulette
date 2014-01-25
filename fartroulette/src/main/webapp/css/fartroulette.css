@@ -44,6 +44,29 @@ body {
     margin-left: -14%;
     width: 36%;
 }
+.voters {
+    background-color: #000000;
+    bottom: -3%;
+    position: absolute;
+    width: 100%;
+    z-index: 401;
+    height: 5%;
+    margin-left: -14%;
+}
+
+.forchar {
+    border: red thin solid;
+    height: 5%;
+    width: 24%;
+    display: block;
+    float: left;
+
+}
+
+.forchar img {
+    width: 22%;
+    margin-right: 2%;
+}
 
 .character img{
     height: 100%;

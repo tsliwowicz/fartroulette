@@ -77,7 +77,13 @@
                     <!--<div class="character" ng-click="vote(2)"><div class="myvote" ng-show="didvoteon(2)" style="left: 23%"></div><img src="assets/{{slotImg(2)}}.png"></div>-->
                     <!--<div class="character" ng-click="vote(3)"><div class="myvote" ng-show="didvoteon(3)" style="left: 46%"></div><img src="assets/{{slotImg(3)}}.png"></div>-->
                     <!--<div class="character" ng-click="vote(4)"><div class="myvote" ng-show="didvoteon(4)" style="left: 69%"></div><img src="assets/{{slotImg(4)}}.png"></div>-->
+                    <div class="voters">
+                        <div class="forchar" ng-repeat="num in [1,2,3,4]">
+                            <img src="{{img}}" ng-repeat="img in slotIdxToImages(num)">
+                        </div>
+                    </div>
                 </div>
+
             </div>
 
 

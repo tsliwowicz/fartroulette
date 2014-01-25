@@ -28,15 +28,21 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 //    });
 
     $scope.$watch('state.gameState', function() {
+        console.log($scope.state);
         console.log($scope.state.gameState);
         if ($scope.state.gameState == 'OPEN_FOR_BETS') {
             $scope.currentQ = $scope.questions[getRandomInt(0, $scope.questions.length-1)];
+            $scope.playSound('moving');
         } else {
             $scope.currentQ = " ";
         }
 
+        if ($scope.state.gameState == 'OPEN') {
+            $scope.playSound('elevatore_before_go');
+        }
+
         if ($scope.state.gameState == 'BEFORE') {
-            $scope.playSound('ss');
+            $scope.playSound('fart'+getRandomInt(1,4));
         }
 //        BEFORE
 
@@ -47,7 +53,7 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 
     $scope.playSound = function(sound){
         console.log("playSound");
-        var snd = new Audio("assets/fart1.mp3"); // buffers automatically when created
+        var snd = new Audio("assets/"+sound+".mp3"); // buffers automatically when created
         snd.play();
     }
 
@@ -58,6 +64,11 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
     $scope.vote = function(idx) {
         console.log("voted " + idx);
         $scope.sock.send("VOTE?voted=slot"+idx);
+
+    };
+
+    $scope.slotImg = function(idx) {
+        return $scope.state.currSlots[idx-1];
 
     };
 
@@ -92,7 +103,7 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
             }
         });
     };
-    $scope.sock = null;
+    $scope.sock = {send: function(){console.log("no socket defined yet")}};
     $scope.initWebSocket = function() {
         var Sock = function() {
             var socket;
@@ -146,9 +157,10 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
             }
             document.forms.inputform.addEventListener('submit', send, false);
         }
+        var iSock =  new Sock();
         window.addEventListener('load', function() { new Sock(); }, false);
-        $scope.sock = Sock.socket;
-        return Sock.socket;
+        $scope.sock = iSock.socket;
+        return iSock.socket;
     }
 
 //    $scope.initSpot = function (){

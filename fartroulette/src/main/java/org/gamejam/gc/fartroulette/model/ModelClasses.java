@@ -101,6 +101,8 @@ public class ModelClasses {
 		ONE, TWO, THREE, NONE
 	}
 	
+	public static final Integer NUM_SLOTS = 4;
+	
 	public static enum Chars {
 		Char_01, Char_02, Char_03, Char_04, Char_05, Char_06
 	}
@@ -110,7 +112,7 @@ public class ModelClasses {
 		public long timeLeftForState = 0;
 		public GameState gameState = GameState.BEFORE;
 		public final ConcurrentMap<Integer, UserData> activeUsers = new ConcurrentHashMap<Integer, UserData>();
-		public final List<Chars> currSlots = new ArrayList<ModelClasses.Chars>(4);
+		public List<Chars> currSlots = new ArrayList<ModelClasses.Chars>(4);
 		
 		public ElevatorData() {
 			currSlots.add(Chars.Char_01);

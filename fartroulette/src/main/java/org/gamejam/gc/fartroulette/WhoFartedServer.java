@@ -16,8 +16,13 @@ package org.gamejam.gc.fartroulette;
  * the License.
  */
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 import org.apache.log4j.Logger;
 import org.gamejam.gc.fartroulette.model.ModelClasses;
+import org.gamejam.gc.fartroulette.model.ModelClasses.Chars;
 import org.gamejam.gc.fartroulette.model.ModelClasses.ClientModel;
 import org.gamejam.gc.fartroulette.model.ModelClasses.ElevatorData;
 import org.gamejam.gc.fartroulette.model.ModelClasses.GameState;
@@ -102,12 +107,44 @@ public class WhoFartedServer {
 		final int numStates = states.length;
 		
 		gameLoop = new Thread() {
+			
+			Random gen = new Random(System.currentTimeMillis());
+			
+			public List<Chars> randomizeSlots() {
+				int numSlots = ModelClasses.NUM_SLOTS;
+				Chars[] chars = ModelClasses.Chars.values();
+				List<Chars> slotsTemp = new ArrayList<Chars>();
+				List<Chars> slots = new ArrayList<Chars>();
+				
+				for (Chars c: chars) {
+					slotsTemp.add(c);
+				}
+				
+				int toRemove = chars.length - numSlots;
+				
+				while (toRemove > 0) {
+					int i = Math.round(gen.nextFloat() * (slotsTemp.size() - 1));
+					slotsTemp.remove(i);
+					toRemove--;
+				}
+				
+				
+				while (slotsTemp.size() > 0) {
+					int i = Math.round(gen.nextFloat() * (slotsTemp.size() - 1));
+					slots.add(slotsTemp.get(i));
+					slotsTemp.remove(i);
+				}
+				
+				
+				return slots;
+				
+			}
 
 			@Override
 			public void run() {
 				setName("game-thread");
 				int currStateIndex = 0;
-				GameState currState = GameState.BEFORE;
+				GameState currState = GameState.OPEN;
 				int currSleepInState = 0;
 				s_elevatorData.gameState = currState;
 				s_elevatorData.timeLeftForState = currState.getStateDuration() - currSleepInState;
@@ -118,6 +155,10 @@ public class WhoFartedServer {
 						currState = states[currStateIndex];
 						currSleepInState = 0;
 						s_elevatorData.gameState = currState;
+						if (currState == GameState.OPEN) {
+							s_elevatorData.currSlots = randomizeSlots();
+							
+						}
 					}
 					s_elevatorData.timeLeftForState = currState.getStateDuration() - currSleepInState;
 					s_logger.info("timeLeftForState: "+s_elevatorData.timeLeftForState);

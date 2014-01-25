@@ -46,6 +46,9 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<TextWebSo
 
 	@Override
     protected void channelRead0(ChannelHandlerContext ctx, TextWebSocketFrame frame) throws Exception {
+		String request = frame.text();
+		s_logger.debug("received "+request);
+				
         /*String request = frame.text();
         ctx.channel().writeAndFlush(new TextWebSocketFrame(request.toUpperCase()));*/
         

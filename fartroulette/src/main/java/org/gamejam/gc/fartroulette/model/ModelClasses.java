@@ -39,6 +39,7 @@ public class ModelClasses {
 	public static class SlotsData {
 		String key;
 		Map<String, UserData> bettingUsers = new HashMap<String, ModelClasses.UserData>();
+		List<String> bettingAvatars = new ArrayList<String>();
 		
 		@Override
 		public String toString() {
@@ -188,6 +189,7 @@ public class ModelClasses {
 							model.slotsData.put(bb.getKey(), slotData);
 						}
 						slotData.bettingUsers.put(user.id, user);
+						slotData.bettingAvatars.add(user.avatar);
 					}
 				}
 				

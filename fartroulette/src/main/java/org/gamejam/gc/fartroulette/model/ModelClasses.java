@@ -59,6 +59,7 @@ public class ModelClasses {
 		public final AtomicLong numGames = new AtomicLong();
 		public final ConcurrentHashMap<String, Integer> bets = new ConcurrentHashMap<String, Integer>();
 		public volatile Animation animation = Animation.NONE;
+		public volatile long lastKeepAlive;
 		
 		
 		@Override
@@ -73,18 +74,20 @@ public class ModelClasses {
 			this.name = name;
 			this.avatar = avatar;
 			this.score.set(score);
+			lastKeepAlive = System.currentTimeMillis();
 		}
 		
 		public UserData(String id, String name, String avatar) {
 			this.id = id;
 			this.name = name;
 			this.avatar = avatar;
+			lastKeepAlive = System.currentTimeMillis();
 		}
 	}
 	
 	public static enum GameState {
 		OPEN(2),
-		BEFORE(6), 
+		BEFORE(3), 
 		OPEN_FOR_BETS(10), 
 		AFTER(5), 
 		LEADERBOARD(7);

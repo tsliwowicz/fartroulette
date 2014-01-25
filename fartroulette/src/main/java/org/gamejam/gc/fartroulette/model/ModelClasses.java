@@ -1,6 +1,8 @@
 package org.gamejam.gc.fartroulette.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -175,6 +177,18 @@ public class ModelClasses {
 			for (Entry<String, UserData> l: leaderBoard.board.entrySet()) {
 				model.leaderBoard.add(l.getValue());
 			}
+			
+			if (model.leaderBoard.size() > 0) {
+				Collections.sort(model.leaderBoard, new Comparator<UserData>() {
+
+					@Override
+					public int compare(UserData arg0, UserData arg1) {
+						
+						return arg0.score.intValue() - arg1.score.intValue();
+					}
+				});
+			}
+			
 			
 			for (Entry<String, UserData> u: activeUsers.entrySet()) {
 				UserData user = u.getValue();

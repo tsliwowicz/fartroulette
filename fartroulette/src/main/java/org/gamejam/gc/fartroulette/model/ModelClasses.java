@@ -17,7 +17,7 @@ public class ModelClasses {
         public List<UserData> nonBetting = new ArrayList<UserData>();
         public List<UserData> activeUsersList = new ArrayList<UserData>();
 		public Map<String, CharacterData> charactersData = new HashMap<String, ModelClasses.CharacterData>();
-		public ConcurrentMap<Integer, UserData> activeUsers;
+		public ConcurrentMap<String, UserData> activeUsers;
 		public GameState gameState;
 		public List<Chars> currSlots;
 		
@@ -111,7 +111,7 @@ public class ModelClasses {
 	public static class ElevatorData {
 		public long timeLeftForState = 0;
 		public GameState gameState = GameState.BEFORE;
-		public final ConcurrentMap<Integer, UserData> activeUsers = new ConcurrentHashMap<Integer, UserData>();
+		public final ConcurrentMap<String, UserData> activeUsers = new ConcurrentHashMap<String, UserData>();
 		public List<Chars> currSlots = new ArrayList<ModelClasses.Chars>(4);
 		
 		public ElevatorData() {
@@ -138,7 +138,7 @@ public class ModelClasses {
 			model.gameState = gameState;
 			model.currSlots = currSlots;
 			
-			for (Entry<Integer, UserData> u: activeUsers.entrySet()) {
+			for (Entry<String, UserData> u: activeUsers.entrySet()) {
 				UserData user = u.getValue();
                 model.activeUsersList.add(user);
 				if (user.bets.size() == 0) {

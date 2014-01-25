@@ -1,6 +1,5 @@
 package org.gamejam.gc.fartroulette;
 
-import static org.junit.Assert.*;
 
 import org.gamejam.gc.fartroulette.model.ModelClasses;
 import org.gamejam.gc.fartroulette.model.ModelClasses.ElevatorData;
@@ -22,8 +21,8 @@ public class JustATest {
 		UserData userData2 = new ModelClasses.UserData("id2", "myname2", "myavatar2");
 		userData1.bets.put("char1", 1);
 		userData1.bets.put("char2", 1);
-		elevatorData.activeUsers.put(1, userData1);
-		elevatorData.activeUsers.put(2, userData2);
+		elevatorData.activeUsers.put("1", userData1);
+		elevatorData.activeUsers.put("2", userData2);
 	}
 
 	@After

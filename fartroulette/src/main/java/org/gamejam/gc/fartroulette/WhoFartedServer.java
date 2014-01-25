@@ -18,12 +18,12 @@ package org.gamejam.gc.fartroulette;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Random;
 
 import org.apache.log4j.Logger;
 import org.gamejam.gc.fartroulette.model.ModelClasses;
 import org.gamejam.gc.fartroulette.model.ModelClasses.Chars;
-import org.gamejam.gc.fartroulette.model.ModelClasses.ClientModel;
 import org.gamejam.gc.fartroulette.model.ModelClasses.ElevatorData;
 import org.gamejam.gc.fartroulette.model.ModelClasses.GameState;
 import org.gamejam.gc.fartroulette.model.ModelClasses.UserData;
@@ -86,7 +86,7 @@ public class WhoFartedServer {
             	.option(ChannelOption.SO_TIMEOUT, 100)        
             .childOption(ChannelOption.SO_KEEPALIVE, true); 
             
-    		loadDummyData();
+    		//loadDummyData();
             
             runUpdaterThread();
             
@@ -151,6 +151,9 @@ public class WhoFartedServer {
 						s_elevatorData.gameState = currState;
 						if (currState == GameState.OPEN) {
 							s_elevatorData.currSlots = randomizeSlots();
+							for (Entry<String, UserData> u: s_elevatorData.activeUsers.entrySet()) {
+								u.getValue().bets.clear();
+							}
 							
 						}
 					}
@@ -199,8 +202,8 @@ public class WhoFartedServer {
 		UserData userData2 = new ModelClasses.UserData("id2", "myname2", "myavatar2");
 		userData1.bets.put("char1", 1);
 		userData1.bets.put("char2", 1);
-		s_elevatorData.activeUsers.put(1, userData1);
-		s_elevatorData.activeUsers.put(2, userData2);
+		s_elevatorData.activeUsers.put("1", userData1);
+		s_elevatorData.activeUsers.put("2", userData2);
 		s_elevatorData.gameState = GameState.OPEN_FOR_BETS;
 	}
 

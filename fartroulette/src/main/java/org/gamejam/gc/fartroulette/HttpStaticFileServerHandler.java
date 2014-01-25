@@ -38,7 +38,6 @@ import io.netty.util.CharsetUtil;
 
 import javax.activation.MimetypesFileTypeMap;
 
-import org.apache.commons.io.FilenameUtils;
 import org.apache.log4j.Logger;
 
 import dk.brics.automaton.RegExp;

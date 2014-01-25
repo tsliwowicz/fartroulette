@@ -16,7 +16,9 @@ package org.gamejam.gc.fartroulette;
  * the License.
  */
 
+import org.apache.log4j.Logger;
 import org.gamejam.gc.fartroulette.model.ModelClasses;
+import org.gamejam.gc.fartroulette.model.ModelClasses.ClientModel;
 import org.gamejam.gc.fartroulette.model.ModelClasses.ElevatorData;
 import org.gamejam.gc.fartroulette.model.ModelClasses.GameState;
 import org.gamejam.gc.fartroulette.model.ModelClasses.UserData;
@@ -60,15 +62,17 @@ import io.netty.util.concurrent.GlobalEventExecutor;
  *
  */
 public class WhoFartedServer {
+	private static final Logger s_logger = Logger.getLogger(WhoFartedServer.class);
 	
 	private static final ChannelGroup s_allChannels = new DefaultChannelGroup(GlobalEventExecutor.INSTANCE);
-	//					s_allChannels.writeAndFlush(new TextWebSocketFrame("fart"));
 
     private static final ElevatorData s_elevatorData = new ElevatorData();
 	
 	private final int port;
 
-	private Thread thread;
+	private Thread updateThread;
+
+	private Thread gameLoop;
 
     public WhoFartedServer(int port) {
         this.port = port;
@@ -97,24 +101,9 @@ public class WhoFartedServer {
             
     		loadDummyData();
             
-            thread = new Thread() {
-
-				@Override
-				public void run() {
-					while (true) {
-						s_allChannels.writeAndFlush(new TextWebSocketFrame(s_elevatorData.toJSON()));
-						try {
-							sleep(200);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-					
-				}
-            	
-            };
-            thread.start();
+            runUpdaterThread();
+            
+            runGame();
 
             final Channel ch = sb.bind(port).sync().channel();
             System.out.println("Web socket server started at port " + port);
@@ -125,6 +114,68 @@ public class WhoFartedServer {
             workerGroup.shutdownGracefully();
         }
     }
+
+	private void runGame() {
+		final GameState[] states = GameState.values();
+		final int numStates = states.length;
+		
+		gameLoop = new Thread() {
+
+			@Override
+			public void run() {
+				setName("game-thread");
+				int currStateIndex = 0;
+				GameState currState = GameState.BEFORE;
+				int currSleepInState = 0;
+				s_elevatorData.gameState = currState;
+				s_elevatorData.timeLeftForState = currState.getStateDuration() - currSleepInState;
+				while (true) {
+					if (currSleepInState > currState.getStateDuration()) {
+						currStateIndex++;
+						currStateIndex = currStateIndex % numStates;
+						currState = states[currStateIndex];
+						currSleepInState = 0;
+						s_elevatorData.gameState = currState;
+					}
+					s_elevatorData.timeLeftForState = currState.getStateDuration() - currSleepInState;
+					s_logger.info("timeLeftForState: "+s_elevatorData.timeLeftForState);
+					
+					try {
+						sleep(1000);
+						currSleepInState++;
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			}
+			
+		};
+		gameLoop.start();
+	}
+
+	private void runUpdaterThread() {
+		updateThread = new Thread() {
+
+			@Override
+			public void run() {
+				setName("update-thread");
+				while (true) {
+					s_allChannels.writeAndFlush(new TextWebSocketFrame(s_elevatorData.toJSON()));
+					try {
+						sleep(200);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+			}
+			
+		};
+		updateThread.start();
+	}
 
 	private void loadDummyData() {
 		UserData userData1 = new ModelClasses.UserData("id1", "myname", "myavatar");

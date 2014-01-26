@@ -212,7 +212,7 @@ body {
 
 .floorindicator{
     display: inline-block;
-    width: 9%;
+    width: 7.65%;
     text-align: center;
     font-family: 'Russo One', sans-serif;
     /*font-family: 'Geo', sans-serif;*/
@@ -237,6 +237,20 @@ body {
     top: 13%;
     width: 80%;
     z-index: 6;
+}
+
+.winlose {
+    position: absolute;
+    left: 35%;
+    top: 10%;
+    width: 30%;
+    height: 15%;
+    background-image: url("../assets/Youlose.png");
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+}
+.winlose.win {
+    background-image: url("../assets/youwin.png");
 }
 
 .indicators {

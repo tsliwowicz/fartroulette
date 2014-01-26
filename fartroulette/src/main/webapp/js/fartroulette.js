@@ -50,13 +50,11 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
             $scope.playSound('fart'+getRandomInt(1,4));
         }
         if ($scope.state.gameState == 'AFTER') {
-//            console.log($scope.state.farterSlot);
-//            console.log($scope.state.farterSlot.substring(4,5));
-//            console.log('farter/' +  $scope.state.currSlots[parseInt($scope.state.farterSlot.substring(4,5))]);
             $scope.playSound('farter/' +  $scope.state.currSlots[parseInt($scope.state.farterSlot.substring(4,5))-1]  );
-//            $scope.state.farterSlot
-//            $scope.state.curr
-//            $scope.playSound('fart'+getRandomInt(1,4));
+
+            if ($scope.wonRound()){
+                $scope.playSound('win');
+            }
         }
 //        BEFORE
 
@@ -67,8 +65,12 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 
 
     $scope.highlightNum = function(idx){
+        if ('OPEN' == $scope.state.gameState )
+            return idx == $scope.state.timeLeftForState + 10;
+
         if ('OPEN_FOR_BETS' == $scope.state.gameState )
             return idx == $scope.state.timeLeftForState;
+
         return false;
     }
 
@@ -111,6 +113,19 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
         return false;
     }
 
+    $scope.wonRound = function(){
+        if (
+            ('AFTER' == $scope.state.gameState ) &&
+            ($scope.state.farterSlot != undefined) &&
+            ($scope.state.slotsData[$scope.state.farterSlot] != undefined) &&
+            ($scope.state.slotsData[$scope.state.farterSlot].bettingUsers[$scope.loginData.id])
+            ){
+            return true;
+        }
+        return false;
+    }
+
+
     $scope.slotImg = function(idx) {
         return $scope.state.currSlots[idx-1];
 
@@ -118,7 +133,7 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 
     $scope.slotIdxToImages = function(idx) {
         if ($scope.state.slotsData && $scope.state.slotsData["slot" + idx] && $scope.state.slotsData["slot" + idx].bettingAvatars){
-            console.log($scope.state.slotsData["slot" + idx].bettingAvatars);
+//            console.log($scope.state.slotsData["slot" + idx].bettingAvatars);
             return  $scope.state.slotsData["slot" + idx].bettingAvatars;
         } else {
             return [];
@@ -193,8 +208,13 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 
             function onmessage(event) {
 //                appendTextArea(event.data);
+
+//                if ($scope.state.gameState != 'AFTER') {
+
                 $scope.state = JSON.parse(event.data);
                 $scope.$apply();
+
+//                }
 //                console.log("Got Data");
 //                console.log(event.data);
             }
@@ -212,7 +232,7 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
 //            }
 
             function send(event) {
-                console.log(event);
+//                console.log(event);
 //                event.preventDefault();
                 if (window.WebSocket) {
                     if (socket.readyState == WebSocket.OPEN) {

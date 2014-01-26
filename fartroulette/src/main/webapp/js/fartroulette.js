@@ -155,7 +155,7 @@ myApp.controller('MainCtrl', ['$scope', function($scope) {
                     function keepAlive() {
                     	$scope.send("KEEPALIVE?uid="+$scope.loginData.id);
                     }
-                    window.setTimeout(keepAlive, 1000);
+                    window.setInterval(keepAlive, 1000);
                     
                     $scope.$apply();
 

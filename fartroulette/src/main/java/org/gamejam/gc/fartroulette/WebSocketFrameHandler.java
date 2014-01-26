@@ -101,7 +101,9 @@ public class WebSocketFrameHandler extends SimpleChannelInboundHandler<TextWebSo
 			String id = paramsMap.get("uid");
 			UserData userData = elevatorData.activeUsers.get(id);
 			if (userData != null) {
-				userData.lastKeepAlive = System.currentTimeMillis();
+				long now = System.currentTimeMillis();
+				userData.lastKeepAlive = now;
+				s_logger.debug(String.format("updated uid %s lastKeepAlive to %d", id, now));
 			} else {
 				s_logger.error("not logged in "+id);
 			}

@@ -158,7 +158,8 @@ public class WhoFartedServer {
 							for (Entry<String, UserData> u: s_elevatorData.activeUsers.entrySet()) {
 								u.getValue().bets.clear();
 								if (now > u.getValue().lastKeepAlive + 1000*5) {
-									usersToRemove.add(u.getKey());
+									//usersToRemove.add(u.getKey());
+									s_logger.debug(String.format("removing %s, now %d, lastkeepalive %d", u.getKey(), now, u.getValue().lastKeepAlive));
 								}
 							}
 							
